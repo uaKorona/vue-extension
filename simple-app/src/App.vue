@@ -4,27 +4,42 @@
             <a class="navbar-brand active" href="#">Simple app</a>
             <!--      <a class="nav-link" href="#">Link</a>      -->
         </nav>
-        <div class="row"></div>
+        <div class="row mt-4"></div>
         <div class="row">
             <div class="col-6">
-                <FileUploader></FileUploader>
+                <FileUploader
+                        v-on:file-uploader-event="getEvent">
+                </FileUploader>
             </div>
-            <div class="col-6">Log</div>
+            <div class="col-6">
+                <SimpleLogger
+                        v-bind:event-data="currentEvent">
+                </SimpleLogger>
+            </div>
         </div>
-<!--        <HelloWorld msg="Welcome to Your Vue.js App"/>-->
     </div>
 </template>
 
 <script>
     import 'vue2-dropzone/dist/vue2Dropzone.min.css'
-    // import HelloWorld from './components/HelloWorld.vue'
+    import SimpleLogger from './components/simple-logger.vue'
     import FileUploader from './components/file-uploader.vue'
 
     export default {
         name: 'App',
         components: {
-            // HelloWorld,
+            SimpleLogger,
             FileUploader
+        },
+        data: function () {
+            return {
+                currentEvent: {},
+            }
+        },
+        methods: {
+            getEvent: function ( eventData ) {
+                this.currentEvent = eventData;
+            }
         }
     }
 </script>

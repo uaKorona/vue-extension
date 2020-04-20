@@ -36,7 +36,12 @@
         },
         methods: {
             fileAdded( file ) {
-                console.log( file );
+                this.fileUploaderEvent({
+                    'added file': file.name
+                })
+            },
+            fileUploaderEvent(eventData) {
+                this.$emit('file-uploader-event', eventData)
             }
         }
     }
