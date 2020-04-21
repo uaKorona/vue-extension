@@ -7,7 +7,7 @@
         <div class="row mt-4"></div>
         <div class="row">
             <div class="col-6">
-                <FileUploader
+                <FileUploader id="FileUploader"
                         v-on:file-uploader-event="getEvent">
                 </FileUploader>
             </div>
