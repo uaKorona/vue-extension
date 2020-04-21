@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import App from '../capturer/App';
 
-// global.browser = require('webextension-polyfill');
 
 class CapturerService {
     getEl = selector => document.querySelector(selector);
@@ -32,5 +31,5 @@ class CapturerService {
 
 (function (CapturerService) {
     var capturerService = new CapturerService();
-    capturerService.domInject('#FileUploader');
+    capturerService.domInject('#app');
 })(CapturerService)

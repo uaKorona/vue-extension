@@ -4,8 +4,8 @@
             <a class="navbar-brand active" href="#">Simple app</a>
             <!--      <a class="nav-link" href="#">Link</a>      -->
         </nav>
-        <div class="row mt-4"></div>
-        <div class="row">
+
+        <div class="row mt-4">
             <div class="col-6">
                 <FileUploader id="FileUploader"
                         v-on:file-uploader-event="getEvent">
