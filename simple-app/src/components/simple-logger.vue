@@ -38,7 +38,6 @@
         },
         watch: {
             eventData: function ( newData ) {
-                console.log( 'new data', newData );
                 this.logEvents.push( newData );
             }
         }

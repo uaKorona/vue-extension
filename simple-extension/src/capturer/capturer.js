@@ -21,7 +21,6 @@ class CapturerService {
 
     addVueApp(targetElSelector) {
         /* eslint-disable no-new */
-
         new Vue({
             el: '#'+targetElSelector,
             render: h => h(App),
@@ -31,5 +30,5 @@ class CapturerService {
 
 (function (CapturerService) {
     var capturerService = new CapturerService();
-    capturerService.domInject('#app');
+    capturerService.domInject('#fileUploaderExt');
 })(CapturerService)

@@ -1,33 +1,40 @@
 <template>
-    <div class="container">
-        <div class="row mt-4">
-            <div class="col-6">
-                <button v-if="!isConnected"
-                        type="button"
-                        class="btn btn-primary"
-                        @click.capture="connectToScreen">
-                    Connect to screen
-                </button>
-                <template v-else>
-                    <button type="button"
-                            class="btn btn-light"
-                            @click="disconnectFromScreen">Disconnect
+    <div class="col-6">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <button v-if="!isConnected"
+                            type="button"
+                            class="btn btn-primary"
+                            @click.capture="connectToScreen">
+                        Connect to screen
                     </button>
-                    <button type="button"
-                            class="btn btn-success">
-                        Capture screen
-                    </button>
-                </template>
+                    <template v-else>
+                        <button type="button"
+                                class="btn btn-light"
+                                @click="disconnectFromScreen">Disconnect
+                        </button>
+                        <button type="button"
+                                class="btn btn-success">
+                            Capture screen
+                        </button>
+                    </template>
+                </div>
             </div>
-        </div>
-        <div class="row mt-4">
-            <video ref="videoElm" autoplay="true"></video>
+            <div class="row mt-4">
+                <div class="col embed-responsive embed-responsive-16by9">
+                    <video class="embed-responsive-item"
+                           ref="videoElm"
+                           autoplay>
+                    </video>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    const displayMediaOptions = {
+    const mediaOptions = {
         video: {
             cursor: "always",
             width: 1920,
@@ -44,27 +51,20 @@
             }
         },
         methods: {
-            connectToScreen: function () {
+            connectToScreen: async function () {
                 this.isConnected = true;
 
-                return navigator.mediaDevices
-                    .getDisplayMedia( displayMediaOptions )
-                    .then( srcObject => {
-                        this.$refs.videoElm.srcObject = srcObject;
-                        return this.$refs.videoElm.play();
-                        /*this.$refs.videoElm.srcObject.getTracks()[ 0 ].addEventListener( 'ended', ()=> {
-
-                        } );*/
-                    } )
-                    .catch( err => {
-                        console.error( "Error:" + err );
-                        return null;
-                    } );
-
-
+                this.$refs.videoElm.srcObject = await navigator.mediaDevices.getDisplayMedia( mediaOptions );
+                return this.$refs.videoElm.play();
             },
             disconnectFromScreen: function () {
                 this.isConnected = false;
+
+                this.$refs.videoElm.srcObject
+                    .getTracks()
+                    .forEach( track => track.stop() );
+
+                this.$refs.videoElm.srcObject = null;
             }
         }
     }

@@ -5,12 +5,15 @@
             <!--      <a class="nav-link" href="#">Link</a>      -->
         </nav>
 
-        <div class="row mt-4">
+        <div class="row mt-4" id="fileUploaderExt">
             <div class="col-6">
-                <FileUploader id="FileUploader"
+                <FileUploader
                         v-on:file-uploader-event="getEvent">
                 </FileUploader>
             </div>
+        </div>
+
+        <div class="row mt-4">
             <div class="col-6">
                 <SimpleLogger
                         v-bind:event-data="currentEvent">
