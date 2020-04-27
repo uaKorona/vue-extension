@@ -12,18 +12,13 @@
     "default_popup": "popup/popup.html"
   },
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "scripts": ["background.js"]
   },
   "content_scripts": [
     {
-      "matches": [
-        "http://localhost:8080/*"
-      ],
-      "js": [
-        "capturer/capturer.js"
-      ],
+      "matches": ["http://localhost:8080/*"],
+      "js": ["capturer/capturer.js"],
+      "css": ["content.css"],
       "run_at": "document_end"
     }
   ],
