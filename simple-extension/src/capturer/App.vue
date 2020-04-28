@@ -17,7 +17,7 @@
         </div>
         <div class="row">
           <div class="col">
-            <VideoPreview></VideoPreview>
+            <VideoPreview v-bind:is-connected="isConnected"></VideoPreview>
           </div>
         </div>
       </div>
@@ -27,13 +27,6 @@
 
 <script>
 import VideoPreview from './components/VideoPreview.vue';
-const mediaOptions = {
-  video: {
-    cursor: 'always',
-    width: 1920,
-  },
-  audio: false,
-};
 
 export default {
   name: 'capturerVue',
@@ -43,22 +36,14 @@ export default {
   data: function() {
     return {
       isConnected: false,
-      srcObject: null,
     };
   },
   methods: {
-    connectToScreen: async function() {
+    connectToScreen: function() {
       this.isConnected = true;
-
-      this.$refs.videoElm.srcObject = await navigator.mediaDevices.getDisplayMedia(mediaOptions);
-      return this.$refs.videoElm.play();
     },
     disconnectFromScreen: function() {
       this.isConnected = false;
-
-      this.$refs.videoElm.srcObject.getTracks().forEach(track => track.stop());
-
-      this.$refs.videoElm.srcObject = null;
     },
   },
 };

@@ -1,16 +1,26 @@
 <template>
   <!-- Draggable DIV -->
   <div id="mydiv" ref="mydiv">
-    <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-    <div id="mydivheader">Click here to move</div>
+    <div id="mydivheader" class="bg-success text-white">Preview</div>
 
     <video class="" ref="videoElm" autoplay></video>
   </div>
 </template>
 
 <script>
+const mediaOptions = {
+  video: {
+    cursor: 'always',
+    width: 1920,
+  },
+  audio: false,
+};
+
 export default {
   name: 'VideoPreview',
+  props: {
+    isConnected: Boolean,
+  },
   data: function() {
     return {
       pos1: 0,
@@ -51,6 +61,21 @@ export default {
       // stop moving when mouse button is released:
       document.onmouseup = null;
       document.onmousemove = null;
+    },
+    startCapture: async function() {
+      this.$refs.videoElm.srcObject = await navigator.mediaDevices.getDisplayMedia(mediaOptions);
+
+      return this.$refs.videoElm.play();
+    },
+    stopCapture: function() {
+      this.$refs.videoElm.srcObject.getTracks().forEach(track => track.stop());
+
+      this.$refs.videoElm.srcObject = null;
+    },
+  },
+  watch: {
+    isConnected: function(newState) {
+      newState ? this.startCapture() : this.stopCapture();
     },
   },
 };
