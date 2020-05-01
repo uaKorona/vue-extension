@@ -1,10 +1,17 @@
 <template>
   <!-- Draggable DIV -->
-  <div id="mydiv" ref="mydiv">
+  <div v-show="isConnected" id="mydiv" ref="mydiv">
     <div id="mydivheader" class="bg-success text-white">Preview</div>
 
-    <video class="" ref="videoElm" autoplay></video>
+    <video class="videoElm" ref="videoElm" autoplay></video>
+
+    <button type="button" class="btn btn-success" @click="takeScreenshot">
+      Take screenshot
+    </button>
+
+    <canvas class="canvasElm" ref="canvasElm"></canvas>
   </div>
+
 </template>
 
 <script>
@@ -72,6 +79,29 @@ export default {
 
       this.$refs.videoElm.srcObject = null;
     },
+    takeScreenshot: function () {
+      const context = this.$refs.canvasElm.getContext('2d');
+      const width = this.$refs.videoElm.offsetWidth;
+      const height = this.$refs.videoElm.offsetHeight;
+      const {videoWidth, videoHeight} = this.$refs.videoElm;
+      this.setSizes(videoWidth, videoHeight);
+      context.drawImage(this.$refs.videoElm, 0, 0, videoWidth, videoHeight);
+      this.$refs.canvasElm.toBlob(blob => this.uploadScreenshot(blob));
+      this.setSizes(width, height);
+    },
+    setSizes: function(width, height) {
+      this.$refs.videoElm.setAttribute('width', width);
+      this.$refs.videoElm.setAttribute('height', height);
+      this.$refs.canvasElm.setAttribute('width', width);
+      this.$refs.canvasElm.setAttribute('height', height);
+    },
+    uploadScreenshot: function(blob) {
+      const fileOfBlob = new File([blob], this.getFileName());
+      console.log( fileOfBlob );
+    },
+    getFileName: function () {
+      return 'Screenshot_' + Date.now() + '.png';
+    }
   },
   watch: {
     isConnected: function(newState) {

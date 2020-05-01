@@ -4,14 +4,17 @@
       <div class="container">
         <div class="row">
           <div class="col">
+
             <button v-if="!isConnected" type="button" class="btn btn-primary" @click.capture="connectToScreen">
               Connect to screen
             </button>
+
             <template v-else>
-              <button type="button" class="btn btn-light" @click="disconnectFromScreen">Disconnect</button>
-              <button type="button" class="btn btn-success">
-                Capture screen
+
+              <button type="button" class="btn btn-light" @click="disconnectFromScreen">
+                Disconnect
               </button>
+
             </template>
           </div>
         </div>
