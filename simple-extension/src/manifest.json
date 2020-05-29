@@ -12,16 +12,22 @@
     "default_popup": "popup/popup.html"
   },
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background.js"],
+    "persistent": false
   },
   "content_scripts": [
     {
       "matches": ["http://localhost:8080/*"],
-      "js": ["capturer/capturer.js"],
+      "js": [
+        "content.js"
+      ],
       "css": ["content.css"],
       "run_at": "document_end"
     }
   ],
+  "web_accessible_resources": [
+    "/capturer/capturer.js"
+    ],
   "options_ui": {
     "page": "options/options.html",
     "chrome_style": true

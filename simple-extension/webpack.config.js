@@ -8,6 +8,7 @@ const { version } = require('./package.json');
 
 const config = {
   mode: process.env.NODE_ENV,
+  devtool: 'eval-source-map',
   context: __dirname + '/src',
   entry: {
     background: './background.js',
@@ -79,6 +80,7 @@ const config = {
       { from: 'options/options.html', to: 'options/options.html', transform: transformHtml },
       { from: 'capturer/capturer.js', to: 'capturer/capturer.js' },
       { from: 'content.css', to: 'content.css' },
+      { from: 'content.js', to: 'content.js' },
       {
         from: 'manifest.json',
         to: 'manifest.json',
