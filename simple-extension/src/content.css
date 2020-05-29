@@ -1,24 +1,19 @@
 #mydiv {
   position: absolute;
   z-index: 9;
+  cursor: move;
   background-color: #f1f1f1;
   border: 1px solid #d3d3d3;
-  text-align: center;
-}
-
-#mydivheader {
-  padding: 10px;
-  cursor: move;
-  z-index: 10;
-}
-
-.videoElm {
-  width: 320px;
-  height: 240px;
 }
 
 .canvasElm {
   display: none;
 }
 
-
+#takeScreenshot {
+  position: absolute;
+  bottom: 0;
+  margin: 0 auto;
+  width: 100%;
+  left: 0;
+}
